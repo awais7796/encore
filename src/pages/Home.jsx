@@ -6,7 +6,7 @@ import './Home.css'
 function Home() {
   return (
     <div className="home">
-      <section className="hero hscreen">
+      <section className="hero">
         <WavyBackground
           containerClassName="hero-wavy"
           className="hero-overlay"
