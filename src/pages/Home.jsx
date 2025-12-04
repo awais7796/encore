@@ -4,6 +4,10 @@ import { WavyBackground } from "../components/ui/wavy-background";
 import { openCal } from "../lib/cal";
 import Services from "./Services";
 import Contact from "./Contact";
+import {
+  TextHoverEffect,
+  FooterBackgroundGradient,
+} from "../components/hover-footer.jsx";
 
 function Home() {
   const location = useLocation();
@@ -206,6 +210,13 @@ function Home() {
       {/* Contact */}
       <section id="contact" className="scroll-mt-[72px]">
         <Contact />
+      </section>
+      <section
+        id="footer"
+        className="relative h-[200px] flex items-center justify-center"
+      >
+        <TextHoverEffect text="Encore Studio" duration={2} />
+        <FooterBackgroundGradient />
       </section>
     </div>
   );
