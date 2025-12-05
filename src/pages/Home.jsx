@@ -1,3 +1,4 @@
+// Import necessary dependencies and components
 import { useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { WavyBackground } from "../components/ui/wavy-background";
@@ -10,33 +11,46 @@ import {
 } from "../components/hover-footer.jsx";
 
 function Home() {
+  // Get current route info from React Router
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Smoothly scrolls to an element by its ID
   const scrollToId = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // Handles route changes and smooth scrolling to target sections
   useEffect(() => {
     const { pathname, hash } = location;
+
+    // If there's a hash (like /#contact), scroll directly to that element
     if (hash) {
       const id = hash.replace("#", "");
       setTimeout(() => scrollToId(id), 50);
       return;
     }
+
+    // Define mapping of routes → section IDs
     const routeToId = {
       "/services": "services",
       "/contact": "contact",
       "/testimonials": "testimonials",
       "/": null,
     };
+
     const targetId = routeToId[pathname];
+
+    // If a section route is detected, navigate home first and then scroll to it
     if (targetId) {
       if (pathname !== "/") {
+        // Navigate to homepage (so sections exist in DOM)
         navigate("/", { replace: true });
+        // Wait for DOM to update before scrolling
         setTimeout(() => scrollToId(targetId), 80);
       } else {
+        // Already on homepage, just scroll
         setTimeout(() => scrollToId(targetId), 30);
       }
     }
@@ -44,7 +58,7 @@ function Home() {
 
   return (
     <div className="min-h-screen flex flex-col gap-20 px-6 pb-24 bg-[var(--bg)] scroll-smooth">
-      {/* Hero Section */}
+      {/* ---------------- HERO SECTION ---------------- */}
       <section id="hero" className="-mx-6 sm:-mx-4 scroll-mt-[72px]">
         <WavyBackground
           containerClassName="relative min-h-screen overflow-hidden bg-[var(--bg)] isolate"
@@ -59,17 +73,23 @@ function Home() {
           blur={35}
           speed="slow"
         >
+          {/* Intro text */}
           <p className="uppercase tracking-[0.2em] text-[0.85rem] text-[var(--muted)]">
             Encore Studio — Web Solutions
           </p>
+
+          {/* Main headline */}
           <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] font-semibold">
             Web experiences, engineered with intention.
           </h1>
+
+          {/* Description */}
           <p className="text-[1.1rem] leading-[1.7] text-[var(--muted)] max-w-[540px]">
             We collaborate with ambitious founders to design, build, and scale
             digital products that feel effortless on every device.
           </p>
 
+          {/* CTA buttons */}
           <div className="flex flex-wrap gap-4">
             <button
               type="button"
@@ -86,7 +106,9 @@ function Home() {
             </Link>
           </div>
 
+          {/* Quick Info section */}
           <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-6 mt-4 pt-6 border-t border-[var(--border)]">
+            {/* Focus item */}
             <div>
               <span className="uppercase tracking-[0.2em] text-[0.7rem] text-[var(--muted)]">
                 Focus
@@ -95,6 +117,8 @@ function Home() {
                 Web & product engineering
               </span>
             </div>
+
+            {/* Response time item */}
             <div>
               <span className="uppercase tracking-[0.2em] text-[0.7rem] text-[var(--muted)]">
                 Response time
@@ -107,11 +131,12 @@ function Home() {
         </WavyBackground>
       </section>
 
-      {/* Capabilities Section */}
+      {/* ---------------- CAPABILITIES SECTION ---------------- */}
       <section
         id="capabilities"
         className="max-w-[1200px] mx-auto flex flex-col gap-10 scroll-mt-[72px]"
       >
+        {/* Section heading */}
         <div className="space-y-2">
           <p className="uppercase tracking-[0.2em] text-[0.85rem] text-[var(--muted)]">
             Capabilities
@@ -121,6 +146,7 @@ function Home() {
           </h2>
         </div>
 
+        {/* Capabilities grid */}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6">
           {[
             [
@@ -158,9 +184,10 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* ---------------- CTA SECTION ---------------- */}
       <section className="max-w-[1200px] mx-auto scroll-mt-[72px]">
         <div className="flex justify-between items-center gap-6 flex-col md:flex-row p-10 rounded-[28px] border border-[var(--border)] bg-[var(--bg-alt)]">
+          {/* Info about availability */}
           <div>
             <p className="uppercase tracking-[0.2em] text-[0.85rem] text-[var(--muted)]">
               Availability
@@ -169,6 +196,8 @@ function Home() {
               Next sprint opens December 9
             </h2>
           </div>
+
+          {/* Button to book call */}
           <button
             type="button"
             onClick={openCal}
@@ -179,12 +208,12 @@ function Home() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* ---------------- SERVICES SECTION ---------------- */}
       <section id="services" className="scroll-mt-[72px]">
         <Services />
       </section>
 
-      {/* Testimonials */}
+      {/* ---------------- TESTIMONIALS SECTION ---------------- */}
       <section id="testimonials" className="scroll-mt-[72px]">
         <div className="space-y-2">
           <p className="uppercase tracking-[0.2em] text-[0.85rem] text-[var(--muted)]">
@@ -195,6 +224,7 @@ function Home() {
           </h2>
         </div>
 
+        {/* Testimonials grid */}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6 mt-6">
           <blockquote className="p-6 border border-[var(--border)] rounded-2xl bg-white/5 text-[var(--muted)] italic">
             “They turned our idea into a product that users love. Fast and
@@ -207,15 +237,19 @@ function Home() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* ---------------- CONTACT SECTION ---------------- */}
       <section id="contact" className="scroll-mt-[72px]">
         <Contact />
       </section>
+
+      {/* ---------------- FOOTER SECTION ---------------- */}
       <section
         id="footer"
         className="relative h-[200px] flex items-center justify-center"
       >
+        {/* Animated hover text */}
         <TextHoverEffect text="Encore Studio" duration={2} />
+        {/* Gradient background effect */}
         <FooterBackgroundGradient />
       </section>
     </div>
